@@ -27,6 +27,10 @@ function Maze() {
     playerPointLight.position.set( 0, 0, 0 );
     scene.add( playerPointLight );
 
+    const playerPointLight2 = new THREE.PointLight(0xff0000, 1, 100);
+    playerPointLight2.position.set( 2, 0, 2 );
+    scene.add( playerPointLight2 );
+
 
     var render = function () {
 
@@ -36,6 +40,9 @@ function Maze() {
         mazeGrid, 
         playerObj
         );
+
+        console.log("coordinates ", playerObj.player.gridX, playerObj.player.gridY);
+        console.log("playerDirection ", playerObj.playerDirection);
 
 /*   console.log("walkingDistance", walkingDistance.current);
   console.log("playerInput", playerObj.playerInput);

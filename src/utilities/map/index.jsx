@@ -18,11 +18,16 @@ export const createMazeGrid = () => {
         this.southWall = southWall;
         this.westWall = westWall;
       }
-      const mazeGrid = [Array(2), Array(2)];
+      const mazeGrid = [Array(3), Array(3), Array(3)];
       mazeGrid[0][0] = new MazeCell(true, false, false, true);
-      mazeGrid[0][1] = new MazeCell(true, true, true, false);
-      mazeGrid[1][0] = new MazeCell(false, true, true, true);
-      mazeGrid[1][1] = new MazeCell(false,false,false,false);
+      mazeGrid[0][1] = new MazeCell(true, false, true, false);
+      mazeGrid[0][2] = new MazeCell(true, true, false, false);
+      mazeGrid[1][0] = new MazeCell(false, true, false, true);
+      mazeGrid[1][1] = new MazeCell(true,true,true,true);
+      mazeGrid[1][2] = new MazeCell(false,true,false,true);
+      mazeGrid[2][0] = new MazeCell(false, false, true, true);
+      mazeGrid[2][1] = new MazeCell(true,false,true,false);
+      mazeGrid[2][2] = new MazeCell(false,true,true,false);
       return mazeGrid;
 }
 
