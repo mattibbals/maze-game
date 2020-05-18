@@ -2,7 +2,8 @@ import React from 'react';
 import * as THREE from "three";
 import '../../App.css';
 import * as MAP from '../../utilities/map';
-import * as PLAYER from '../../utilities/player'
+import * as PLAYER from '../../utilities/player';
+import * as COLLECTABLE from '../../utilities/collectible'
 
 function Maze() {
 
@@ -19,6 +20,9 @@ function Maze() {
 
     const mazeGrid = MAP.getMazeGridObj(scene);
 
+    const collectables = COLLECTABLE.createCollectiblesList();
+    COLLECTABLE.placeCollectableGraphics(scene, collectables);
+
     window.addEventListener("keydown", function(evt) { PLAYER.doKeyDown(evt, playerObj) }, false);
     window.addEventListener("keyup", function(evt) { PLAYER.doKeyUp(evt, playerObj) }, false);
 
@@ -27,20 +31,28 @@ function Maze() {
     playerPointLight.position.set( 0, 0, 0 );
     scene.add( playerPointLight );
 
-    const playerPointLight2 = new THREE.PointLight(0xff0000, 1, 100);
-    playerPointLight2.position.set( 2, 0, 2 );
-    scene.add( playerPointLight2 );
-
-
     var render = function () {
 
       requestAnimationFrame( render );
 
+      const now = Date.now();
+      let deltaTime = now - playerObj.last_update;
+      playerObj.last_update = now;
+
       PLAYER.doPlayerMove(
         mazeGrid, 
-        playerObj
+        playerObj,
+        deltaTime,
+        collectables,
+        scene
         );
 
+        playerPointLight.position.x = playerObj.camera.position.x;
+        playerPointLight.position.y = playerObj.camera.position.y;
+        playerPointLight.position.z = playerObj.camera.position.z;
+
+        COLLECTABLE.doCollectablesMove(collectables, deltaTime);
+ 
         console.log("coordinates ", playerObj.player.gridX, playerObj.player.gridY);
         console.log("playerDirection ", playerObj.playerDirection);
 

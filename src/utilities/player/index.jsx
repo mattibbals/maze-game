@@ -1,4 +1,5 @@
 import * as MAP from '../../utilities/map';
+import * as COLLECTABLE from '../../utilities/collectible'
 
 export const WAITING = 1;
 export const TURNING_RIGHT = 2;
@@ -6,6 +7,7 @@ export const TURNING_LEFT = 3;
 export const MOVING_FORWARD = 4;
 
 export const getPlayerObj = () => {
+    
     return {
         startX: 0,
         startZ: 0,
@@ -70,11 +72,12 @@ export const doKeyDown = (event, playerObj) => {
 
 export const doPlayerMove = (
     mazeGrid, 
-    playerObj
+    playerObj,
+    deltaTime,
+    collectables,
+    scene
     ) => {
-        const now = Date.now();
-        let deltaTime = now - playerObj.last_update;
-        playerObj.last_update = now;
+
 
     if(playerObj.playerState === WAITING) {
         if(playerObj.playerInput.left === 1) {
@@ -165,6 +168,7 @@ export const doPlayerMove = (
         if(playerObj.walkingDistance >= 1){
             playerObj.walkingDistance = 1;
             playerObj.playerState = WAITING;
+            COLLECTABLE.processCollectableCollisions(playerObj.player.gridX, playerObj.player.gridY,collectables,scene);
         }
         switch(playerObj.playerDirection){
             case MAP.NORTH:
