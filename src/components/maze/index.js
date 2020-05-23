@@ -1,4 +1,5 @@
-import React, {useRef} from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import * as THREE from "three";
 import '../../App.css';
 import * as MAP from '../../utilities/map';
@@ -12,13 +13,14 @@ const mazeGrid = MAP.getMazeGridObj(scene);
 
 function Maze() {
 
-  const { useEffect } = React
+  const { useEffect, } = React
 
   const playerObj = PLAYER.getPlayerObj();
 
   useEffect(() => {
 
     const mazeCanvas = document.getElementById("mazeCanvas");
+    const overHeadView = document.getElementById("overHeadView");
 
     const renderer = new THREE.WebGLRenderer({ canvas: mazeCanvas });
     playerObj.camera = new THREE.PerspectiveCamera( 75, mazeCanvas.width/mazeCanvas.height, 0.1, 1000 );
@@ -67,7 +69,13 @@ function Maze() {
   console.log("camera y", playerObj.camera.rotation.y);
   console.log("playerState", playerState.current);
   console.log('*************************************'); */
-  
+  //    overHeadView.innerHTML = <OverHeadView mazeGrid={mazeGrid} playerObj={playerObj} />;
+
+      ReactDOM.render(
+        <OverHeadView mazeGrid={mazeGrid} playerObj={playerObj} />,
+        overHeadView
+      )
+
       renderer.render(scene, playerObj.camera);
    };
 
@@ -83,7 +91,7 @@ function Maze() {
   return (
     <>
       <canvas id="mazeCanvas" width="600" height="450" />
-      <OverHeadView mazeGrid={mazeGrid} playerObj={playerObj} />
+      <div id="overHeadView" />
     </>
     )
 }

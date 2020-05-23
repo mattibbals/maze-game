@@ -2,7 +2,7 @@ import React from 'react';
 import * as MAP from '../../utilities/map';
 
 const OverHeadView = props => {
-    const { playerObj, mazeGrid } = props;
+    const {  playerObj, mazeGrid } = props;
     const { player : { gridX, gridY, direction }} = playerObj;
     return (
         <>
