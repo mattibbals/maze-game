@@ -1,17 +1,39 @@
-html {
-  box-sizing: border-box;
+.west_wall {
+  border-left: 2px solid #000000 !important;
+}
+.east_wall {
+  border-right: 2px solid #000000 !important;
+}
+.north_wall {
+  border-top: 2px solid #000000 !important;
+}
+.south_wall {
+  border-bottom: 2px solid #000000 !important;
+}
+.map_cell {
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+  align-items: stretch;
+  flex-grow: 1;
+  border: 2px solid #ffffff;
+  min-width: 20px;
+  min-height: 20px;
+  text-align: center;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
+.map_row {
+  display: flex;
+  flex-direction: row;
+  align-content: stretch;
+  align-items: stretch;
+  flex-grow: 1;
 }
 
-body {
-  font-family: sans-serif;
-  padding: 0;
-  margin: 0;
+.map_container {
+  border: 2px solid #000000;
+  display: flex;
+  flex-direction: column;
 }
 
 .spinningCube {

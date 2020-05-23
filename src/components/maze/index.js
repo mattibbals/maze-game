@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import * as THREE from "three";
 import '../../App.css';
 import * as MAP from '../../utilities/map';
 import * as PLAYER from '../../utilities/player';
 import * as COLLECTABLE from '../../utilities/collectible'
+import OverHeadView from '../overHeadView'
+
+
+const scene = new THREE.Scene();
+const mazeGrid = MAP.getMazeGridObj(scene);
 
 function Maze() {
 
@@ -14,11 +19,9 @@ function Maze() {
   useEffect(() => {
 
     const mazeCanvas = document.getElementById("mazeCanvas");
-    const scene = new THREE.Scene();
+
     const renderer = new THREE.WebGLRenderer({ canvas: mazeCanvas });
     playerObj.camera = new THREE.PerspectiveCamera( 75, mazeCanvas.width/mazeCanvas.height, 0.1, 1000 );
-
-    const mazeGrid = MAP.getMazeGridObj(scene);
 
     const collectables = COLLECTABLE.createCollectiblesList();
     COLLECTABLE.placeCollectableGraphics(scene, collectables);
@@ -53,8 +56,8 @@ function Maze() {
 
         COLLECTABLE.doCollectablesMove(collectables, deltaTime);
  
-        console.log("coordinates ", playerObj.player.gridX, playerObj.player.gridY);
-        console.log("playerDirection ", playerObj.playerDirection);
+  //      console.log("coordinates ", playerObj.player.gridX, playerObj.player.gridY);
+  //      console.log("playerDirection ", playerObj.playerDirection);
 
 /*   console.log("walkingDistance", walkingDistance.current);
   console.log("playerInput", playerObj.playerInput);
@@ -77,7 +80,12 @@ function Maze() {
 
   });
 
-  return <canvas id="mazeCanvas" width="600" height="450" />
+  return (
+    <>
+      <canvas id="mazeCanvas" width="600" height="450" />
+      <OverHeadView mazeGrid={mazeGrid} playerObj={playerObj} />
+    </>
+    )
 }
 
 export default Maze;
