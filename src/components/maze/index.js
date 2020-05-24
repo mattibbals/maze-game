@@ -25,7 +25,7 @@ function Maze() {
     const renderer = new THREE.WebGLRenderer({ canvas: mazeCanvas });
     playerObj.camera = new THREE.PerspectiveCamera( 75, mazeCanvas.width/mazeCanvas.height, 0.1, 1000 );
 
-    const collectables = COLLECTABLE.createCollectiblesList();
+    const collectables = COLLECTABLE.createCollectiblesList(5, mazeGrid);
     COLLECTABLE.placeCollectableGraphics(scene, collectables);
 
     window.addEventListener("keydown", function(evt) { PLAYER.doKeyDown(evt, playerObj) }, false);
@@ -72,7 +72,7 @@ function Maze() {
   //    overHeadView.innerHTML = <OverHeadView mazeGrid={mazeGrid} playerObj={playerObj} />;
 
       ReactDOM.render(
-        <OverHeadView mazeGrid={mazeGrid} playerObj={playerObj} />,
+        <OverHeadView mazeGrid={mazeGrid} playerObj={playerObj} collectables={collectables} />,
         overHeadView
       )
 
